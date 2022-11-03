@@ -254,6 +254,8 @@ fn emit_error_event(response_error: &dyn ResponseError, status_code: StatusCode)
     let error_msg_prefix = "Error encountered while processing the incoming HTTP request";
     if status_code.is_client_error() {
         tracing::warn!("{}: {:?}", error_msg_prefix, response_error);
+    } else if status_code.is_success() {
+        tracing::info!("{:?}", response_error);
     } else {
         tracing::error!("{}: {:?}", error_msg_prefix, response_error);
     }
