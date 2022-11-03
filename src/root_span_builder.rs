@@ -72,6 +72,8 @@ fn handle_error(span: Span, status_code: StatusCode, response_error: &dyn Respon
 
     if status_code.is_client_error() {
         span.record("otel.status_code", &"OK");
+    } else if status_code.is_success() {
+        span.record("otel.status_code", &"OK");
     } else {
         span.record("otel.status_code", &"ERROR");
     }
